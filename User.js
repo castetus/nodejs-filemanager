@@ -14,6 +14,10 @@ class User {
   greet() {
     console.log(`${this.greetingString}${this.username}!`);
   }
+
+  sayGoodbye() {
+    console.log(`Thank you for using File Manager, ${this.username}, goodbye!`);
+  }
 }
 
 export default new User();

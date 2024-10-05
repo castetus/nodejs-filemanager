@@ -10,4 +10,8 @@ args.forEach((el) => {
 
 user.greet();
 
-console.table([{ a: 1, b: 'Y' }, { a: 'Z', b: 2 }]);
+process.on('exit', (code) => {
+  if (code === 0) {
+    user.sayGoodbye();
+  }
+});
