@@ -1,5 +1,5 @@
 {
-  "name": "nodejs-filemanager",
+  "name": "filemanager",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
