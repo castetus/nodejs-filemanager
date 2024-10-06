@@ -1,3 +1,7 @@
-class Fs {
+export const up = () => {
+
+};
+
+export const ls = () => {
   
-}
+};

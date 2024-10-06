@@ -1,4 +1,5 @@
 import readlinePromises from 'node:readline/promises';
+import { handleInput } from './inputHandler.js';
 
 export const readline = () => {
 
@@ -8,6 +9,7 @@ export const readline = () => {
   });
 
   rl.on('line', (line) => {
-    console.log(`Received: ${line}`);
+    // console.log(`Received: ${line}`);
+    handleInput(line);
   });
 }
