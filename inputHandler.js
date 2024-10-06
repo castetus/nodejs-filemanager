@@ -1,22 +1,21 @@
 import { commands } from './constants.js';
-// import { handleInvalidCommand, handleError } from './outputHandler.js';
+import { handleInvalidCommand, handleError } from './outputHandler.js';
 
 export const handleInput = (input) => {
   const inputArr = input.split(' ');
   const command = inputArr[0];
   const args = inputArr.slice(1);
 
-  console.log(input)
+  if (commands[command] === undefined) {
+    handleInvalidCommand();
+    return;
+  }
 
-  // if (commands[command] === undefined) {
-  //   // handleInvalidCommand();
-  //   return;
-  // }
-
-  const result = commands[command](...args);
+  const result = commands[command](args);
+  console.log(result);
 
   // if (!result) {
-  //   // handleError();
+  //   handleError();
   //   return;
   // }
 

@@ -9,7 +9,6 @@ export const readline = () => {
   });
 
   rl.on('line', (line) => {
-    // console.log(`Received: ${line}`);
     handleInput(line);
   });
 }
