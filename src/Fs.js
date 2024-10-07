@@ -2,7 +2,7 @@ import * as fsPromises from 'node:fs/promises';
 import * as path from "node:path";
 import { fileURLToPath } from 'url';
 import { getOsInfo } from './OS.js';
-import { invalidStatus, tableType, successStatus } from './constants.js';
+import { invalidStatus, tableType, successStatus, failedStatus } from './constants.js';
 
 class Fs {
   currentPath = '';
@@ -85,8 +85,24 @@ class Fs {
       return { status: invalidStatus };
     }
     const newFilePath = `${this.currentPath}/${filename}`;
-    await fsPromises.writeFile(newFilePath, '');
-    return { status: successStatus };
+    try {
+      await fsPromises.writeFile(newFilePath, '');
+      return { status: successStatus };
+    } catch (error) {
+      return { status: failedStatus };
+    }
+  };
+
+  async rm([filePath]) {
+    if (!filePath) {
+      return { status: invalidStatus };
+    }
+    try {
+      await fsPromises.rm(filePath);
+      return { status: successStatus };
+    } catch (error) {
+      return { status: failedStatus };
+    }
   };
 };
 

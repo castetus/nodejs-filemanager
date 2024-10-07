@@ -3,6 +3,7 @@ import fs from './Fs.js';
 
 export const successStatus = 'ok';
 export const invalidStatus = 'error';
+export const failedStatus = 'failed';
 
 export const tableType = 'table';
 
