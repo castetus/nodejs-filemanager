@@ -18,4 +18,6 @@ export const commands = {
   'up': fs.up.bind(fs),
   'cd': fs.cd.bind(fs),
   'add': fs.add.bind(fs),
+  'rn': fs.rn.bind(fs),
+  'rm': fs.rm.bind(fs),
 };

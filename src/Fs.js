@@ -11,17 +11,12 @@ class Fs {
     this.currentPath = getOsInfo(['--homedir']).data;
   };
 
-  getCurrentPath (folder = '') {
-    const __filename = fileURLToPath(import.meta.url);
-    console.log(__filename, path.dirname(__filename));
-    // if (!folder) {
-      return path.dirname(__filename);
-    // }
-    // return `${path.dirname(__filename)}/${folder}`;
+  getPathToFile(fileName) {
+    return `${this.currentPath}/${fileName}`;
   };
 
   async checkIfFile(fileName) {
-    const fullPath = `${this.currentPath}/${fileName}`;
+    const fullPath = this.getPathToFile(fileName);
     const stat = await fsPromises.lstat(fullPath);
     return stat.isFile();
   };
@@ -44,7 +39,7 @@ class Fs {
   async ls() {
     const path = this.currentPath;
     const list = await fsPromises.readdir(path);
-    // console.log(list)
+
     const promises = list.map(async (item) => await this.prepareFileInfo(item));
     const result = await Promise.allSettled(promises)
     return {
@@ -84,9 +79,22 @@ class Fs {
     if (!filename) {
       return { status: invalidStatus };
     }
-    const newFilePath = `${this.currentPath}/${filename}`;
+    const newFilePath = this.getPathToFile(filename);
     try {
       await fsPromises.writeFile(newFilePath, '');
+      return { status: successStatus };
+    } catch (error) {
+      return { status: failedStatus };
+    }
+  };
+
+  async rn([pathToFile, newFileName]) {
+    if (!pathToFile || !newFileName) {
+      return { status: invalidStatus };
+    }
+    const newPath = this.getPathToFile(newFileName);
+    try {
+      await fsPromises.rename(pathToFile, newPath);
       return { status: successStatus };
     } catch (error) {
       return { status: failedStatus };
