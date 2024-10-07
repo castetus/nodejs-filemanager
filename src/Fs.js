@@ -58,11 +58,30 @@ class Fs {
     };
   };
 
-  async cd([path]) {
-    if (!path) {
+  async cd([dirpath]) {
+    if (!dirpath) {
       return { status: invalidStatus };
     }
-    return '';
+    const realPath = path.isAbsolute(dirpath) ? dirpath : `${this.currentPath}/${dirpath}`;
+    try {
+      await fsPromises.access(realPath);
+      this.currentPath = realPath;
+      return {
+        data: this.currentPath,
+      };
+    } catch (error) {
+      return {
+        status: invalidStatus,
+      };
+    }
+  };
+
+  async cat([path]) {
+
+  };
+
+  async add([filename]) {
+
   };
 };
 
