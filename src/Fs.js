@@ -44,10 +44,16 @@ class Fs {
   async ls() {
     const path = this.currentPath;
     const list = await fsPromises.readdir(path);
+    // console.log(list)
     const promises = list.map(async (item) => await this.prepareFileInfo(item));
     const result = await Promise.allSettled(promises)
     return {
-      data: result.map((el) => el.value),
+      data: result.map((el) => el.value).toSorted((a, b) => {
+        if (a.Type < b.Type) return -1;
+        if (a.Type > b.Type) return 1;
+
+        return a.Name - b.Name;
+      }),
       type: tableType,
     };
   };
