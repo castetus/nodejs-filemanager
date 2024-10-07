@@ -1,4 +1,4 @@
-import { commands, tableType, invalidStatus } from './constants.js';
+import { commands, tableType, invalidStatus, successStatus } from './constants.js';
 import { handleInvalidCommand, handleError } from './outputHandler.js';
 
 export const handleInput = async (input) => {
@@ -15,6 +15,10 @@ export const handleInput = async (input) => {
 
   if (result.status === invalidStatus) {
     handleInvalidCommand();
+    return;
+  }
+
+  if (result.status === successStatus) {
     return;
   }
 

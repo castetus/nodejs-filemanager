@@ -2,7 +2,7 @@ import * as fsPromises from 'node:fs/promises';
 import * as path from "node:path";
 import { fileURLToPath } from 'url';
 import { getOsInfo } from './OS.js';
-import { invalidStatus, tableType } from './constants.js';
+import { invalidStatus, tableType, successStatus } from './constants.js';
 
 class Fs {
   currentPath = '';
@@ -81,7 +81,12 @@ class Fs {
   };
 
   async add([filename]) {
-
+    if (!filename) {
+      return { status: invalidStatus };
+    }
+    const newFilePath = `${this.currentPath}/${filename}`;
+    await fsPromises.writeFile(newFilePath, '');
+    return { status: successStatus };
   };
 };
 
