@@ -20,6 +20,21 @@ class Fs {
     // return `${path.dirname(__filename)}/${folder}`;
   };
 
+  async checkIfFile(fileName) {
+    const fullPath = `${this.currentPath}/${fileName}`;
+    const stat = await fsPromises.lstat(fullPath);
+    return stat.isFile();
+  };
+
+  async prepareFileInfo(fileName) {
+    const isFile = await this.checkIfFile(fileName);
+    const type = isFile ? 'file' : 'directory';
+    return {
+      Name: fileName,
+      Type: type,
+    };
+  };
+
   async up() {
     const parentFolderPath = this.currentPath.split('/').slice(0, -1).join('/');
     this.currentPath = parentFolderPath;
@@ -29,19 +44,19 @@ class Fs {
   async ls() {
     const path = this.currentPath;
     const list = await fsPromises.readdir(path);
-
+    const promises = list.map(async (item) => await this.prepareFileInfo(item));
+    const result = await Promise.allSettled(promises)
     return {
-      data: list,
+      data: result.map((el) => el.value),
       type: tableType,
     };
   };
 
-  async cd(path) {
-    console.log('fs', 'test')
+  async cd([path]) {
     if (!path) {
       return { status: invalidStatus };
     }
-
+    return '';
   };
 };
 
