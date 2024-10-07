@@ -1,7 +1,7 @@
-import { commands } from './constants.js';
+import { commands, tableType, invalidStatus } from './constants.js';
 import { handleInvalidCommand, handleError } from './outputHandler.js';
 
-export const handleInput = (input) => {
+export const handleInput = async (input) => {
   const inputArr = input.split(' ');
   const command = inputArr[0];
   const args = inputArr.slice(1);
@@ -11,8 +11,20 @@ export const handleInput = (input) => {
     return;
   }
 
-  const result = commands[command](args);
-  console.log(result);
+  const result = await commands[command](args);
+  console.log('result', result)
+
+  if (result.status === invalidStatus) {
+    handleInvalidCommand();
+    return;
+  }
+
+  if(result.type === tableType) {
+    console.table(result.data);
+    return;
+  }
+
+  console.log(result.data);
 
   // if (!result) {
   //   handleError();

@@ -5,14 +5,14 @@ export const getOsInfo = (args) => {
 
   switch (arg) {
     case 'EOL':
-      return os.EOL === '\n' ? '\\n' : '\\r\\n';
+      return { data: os.EOL === '\n' ? '\\n' : '\\r\\n' };
     case 'cpus':
-      return os.cpus();
+      return { data: os.cpus() };
     case 'homedir':
-      return os.homedir();
+      return { data: os.homedir() };
     case 'username':
-      return os.userInfo().username;
+      return { data: os.userInfo().username };
     case 'architecture':
-      return process.arch;
+      return { data: process.arch };
   }
 };
