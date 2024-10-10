@@ -17,6 +17,7 @@ export const commands = {
   'ls': fs.ls.bind(fs),
   'up': fs.up.bind(fs),
   'cd': fs.cd.bind(fs),
+  'cat': fs.cat.bind(fs),
   'add': fs.add.bind(fs),
   'rn': fs.rn.bind(fs),
   'rm': fs.rm.bind(fs),

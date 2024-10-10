@@ -12,7 +12,7 @@ export const handleInput = async (input) => {
   }
 
   const result = await commands[command](args);
-
+  console.log('result', result)
   if (result.status === invalidStatus) {
     handleInvalidCommand();
     return;

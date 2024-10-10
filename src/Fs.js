@@ -1,4 +1,5 @@
 import * as fsPromises from 'node:fs/promises';
+import fs from 'fs';
 import * as path from "node:path";
 import { fileURLToPath } from 'url';
 import { getOsInfo } from './OS.js';
@@ -71,8 +72,18 @@ class Fs {
     }
   };
 
-  async cat([path]) {
+  async cat([pathToFile]) {
+    if (!pathToFile) {
+      return { status: invalidStatus };
+    }
 
+    const readStream = fs.createReadStream(pathToFile, { encoding: 'utf8' });
+    readStream.on('data', (data) => {
+      console.log(data)
+      return {
+        data,
+      };
+    });
   };
 
   async add([filename]) {
