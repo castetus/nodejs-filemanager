@@ -1,4 +1,5 @@
 import { getOsInfo } from "./OS.js";
+import { hash } from "./hash.js";
 import fs from './Fs.js';
 
 export const successStatus = 'ok';
@@ -21,4 +22,5 @@ export const commands = {
   'add': fs.add.bind(fs),
   'rn': fs.rn.bind(fs),
   'rm': fs.rm.bind(fs),
+  'hash': hash,
 };
