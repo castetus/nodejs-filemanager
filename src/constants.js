@@ -1,0 +1,29 @@
+import { getOsInfo } from "./OS.js";
+import { hash } from "./hash.js";
+import { compress, decompress } from "./zip.js";
+import fs from './Fs.js';
+
+export const successStatus = 'ok';
+export const invalidStatus = 'error';
+export const failedStatus = 'failed';
+
+export const tableType = 'table';
+
+export const invalidInputMessage = 'Invalid input';
+
+export const operationFailedMessage = 'Operation failed';
+
+export const commands = {
+  '.exit': process.exit,
+  'os': getOsInfo,
+  'ls': fs.ls.bind(fs),
+  'up': fs.up.bind(fs),
+  'cd': fs.cd.bind(fs),
+  'cat': fs.cat.bind(fs),
+  'add': fs.add.bind(fs),
+  'rn': fs.rn.bind(fs),
+  'rm': fs.rm.bind(fs),
+  'hash': hash,
+  'compress': compress,
+  'decompress': decompress,
+};
