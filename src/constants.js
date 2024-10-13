@@ -1,5 +1,6 @@
 import { getOsInfo } from "./OS.js";
 import { hash } from "./hash.js";
+import { compress, decompress } from "./zip.js";
 import fs from './Fs.js';
 
 export const successStatus = 'ok';
@@ -23,4 +24,6 @@ export const commands = {
   'rn': fs.rn.bind(fs),
   'rm': fs.rm.bind(fs),
   'hash': hash,
+  'compress': compress,
+  'decompress': decompress,
 };
