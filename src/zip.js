@@ -21,9 +21,9 @@ const processFile = async (...args) => {
 };
 
 export const compress = async ([sourcePath, destinationPath]) => {
-  return processFile(sourcePath, destinationPath, 'compress')
+  return processFile(sourcePath, destinationPath, 'compress');
 };
 
 export const decompress = async ([sourcePath, destinationPath]) => {
-  return processFile(sourcePath, destinationPath, 'decompress')
+  return processFile(sourcePath, destinationPath, 'decompress');
 };
